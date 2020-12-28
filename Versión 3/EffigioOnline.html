@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+   <head>
+     <meta charset="UTF-8">
+      <script type="text/javascript">
+         // set the pyodide files URL (packages.json, pyodide.asm.data etc)
+         window.languagePluginUrl = 'https://cdn.jsdelivr.net/pyodide/v0.16.1/full/';
+      </script>
+      <script src="https://cdn.jsdelivr.net/pyodide/v0.16.1/full/pyodide.js"></script>
+       <script type="text/javascript">
+      
+         //from  https://stackoverflow.com/questions/10642289/return-html-content-as-a-string-given-url-javascript-function
+         function httpGet(theUrl)
+         {
+             if (window.XMLHttpRequest)
+             {// code for IE7+, Firefox, Chrome, Opera, Safari
+                 xmlhttp=new XMLHttpRequest();
+             }
+             else
+             {// code for IE6, IE5
+                 xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+             }
+             xmlhttp.onreadystatechange=function()
+             {
+                 if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                 {
+                 languagePluginLoader.then(function () {
+                 contenido=xmlhttp.responseText;
+         
+         pyodide.runPythonAsync(contenido).then(output => {
+          console.log( pyodide.globals.eventFile);
+          
+           const blob = new Blob([pyodide.globals.eventBytes], {type : 'application/zip'});
+          let url = window.URL.createObjectURL(blob);
+          window.location.assign(url);
+           return false;
+          });
+         
+         });           
+                 }
+             }
+             xmlhttp.open("GET", theUrl, false );
+             xmlhttp.send();    
+             return false;
+         }
+         
+         
+        // contenido=httpGet("web.py");
+         
+      </script>
+   </head>
+   <body>
+   
+     Invites generation for online event <br>
+Number of invites: <input type="number" name="invites" id="invites" value="5">
+
+<button  type="submit" onClick="httpGet('web.py')" value="Download invites"> Download invites</button>
+    
+     
+   </body>
+</html>
