@@ -27,6 +27,7 @@ def main(argv, argv_d):
     LaTeX(lst)
     volcado_csv(lst_view)
 
+# this will work only online. Replace with a number assignment to make experiments
 invitaciones = js.document.getElementById('invites').value
 
 main(invitaciones,0)
