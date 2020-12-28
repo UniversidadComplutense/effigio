@@ -16,7 +16,7 @@ To create the executable for online version, run
 
 	sh createPythonForWeb.sh
 
-This will take EffigioOnline.py, will cut the part before the "main" header, will paste it instead of the "import Effigio" part in EffigioOnline.py, and the result will be copied into a file "web.py" which is what you actually need.
+This will take EffigioOnline.py, will cut the part before the "main" header, will paste it instead of the "import Effigio" part in EffigioPyodide.py, and the result will be copied into a file "web.py" which is what you actually need.
 
 Once done, you can try launching a web server in the same folder where these files are
 
@@ -29,6 +29,11 @@ Once you see the GUI, type the number of invites you want and press the button. 
 * A json file for configuring OBS-Studio
 * A csv file with the URL for invites
 * A .tex file with custom invitations that can be rendered using LUALATEX into a printable pdf
+
+WARNING: 
+
+* In the EffigioOnline.py or the EffigioPyodide.py be careful with the use of "print". The information transfer from python to javascript is made using variables, but there may be sideeffects if you try to capture the output.
+* exceptions in python code once run from the browser are very hard to debug. Better debug in the terminal and then go to the browser
 
 Deploy instructions
 ===============
